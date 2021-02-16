@@ -24,6 +24,9 @@ public class Modelo {
     @Column(name="descripcion")
     private String descripcion;
 
+    @Column(name="icono")
+    private String icono;
+
     @ManyToOne
     @JoinColumn(name = "idmarcador", referencedColumnName = "idmarcador")
     private Marcador marcador;
@@ -66,6 +69,10 @@ public class Modelo {
         return this.animacion;
     }
 
+    public String getIcono(){
+        return this.icono;
+    }
+
     public ContenidoExtra getContenido(){
         return this.contenido;
     }
@@ -88,6 +95,10 @@ public class Modelo {
 
     public void setContenido(ContenidoExtra contenido){
         this.contenido = contenido;
+    }
+
+    public void setIcono(String icono){
+        this.icono = icono;
     }
     
 }
