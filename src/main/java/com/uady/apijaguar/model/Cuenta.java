@@ -17,11 +17,14 @@ public class Cuenta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idcuenta")
+    @Column(name="idCuenta")
     private Integer idCuenta;
 
     @Column(name="email")
     private String email;
+
+    @Column(name="alias")
+    private String alias;
 
     @Column(name="password")
     @JsonIgnore
@@ -31,25 +34,28 @@ public class Cuenta {
     @JsonIgnore
     private String token;
 
-    @Column(name="isbanned")
+    @Column(name="is_banned")
     private Boolean isBanned;
 
-    @Column(name="registerdate")
+    @Column(name="register_date")
     private Date registerDate;
 
-    @Column(name="lastupdate")
+    @Column(name="last_update")
     private Date lastUpdate;
 
     public Cuenta(){}
 
-    public Cuenta(String email, String password, String token, Boolean isBanned, Date registerDate, Date lastUpdate){
+    public Cuenta(String email,String alias, String password, String token, Boolean isBanned, Date registerDate, Date lastUpdate){
         this.email = email;
+        this.alias = alias;
         this.password = password;
         this.token = token;
         this.isBanned = isBanned;
         this.registerDate = registerDate;
         this.lastUpdate = lastUpdate;
     }
+
+    //Getters
 
     public Integer getIdCuenta(){
         return this.idCuenta;
@@ -59,6 +65,9 @@ public class Cuenta {
         return this.email;
     }
 
+    public String getAlias(){
+        return this.alias;
+    }
     public String getPassword(){
         return this.password;
     }
@@ -78,11 +87,15 @@ public class Cuenta {
     public Date getLastUpdate(){
         return this.lastUpdate;
     }
-
+    //Setters
     public void setEmail(String email){
         this.email = email;
     }
 
+    public void setAlias(String alias){
+        this.alias = alias;
+    }
+    
     public void setPassword(String password){
         this.password = password;
     }

@@ -15,38 +15,53 @@ public class Museo {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idmuseo")
+    @Column(name="idMuseo")
     private Integer idMuseo;
 
-    @Column(name = "nombremuseo")
-    private String nombreMuseo;
+    @Column(name="ubicacion")
+    private String ubicacion;
 
-    @Column(name="urllocalizacion")
-    private String urlLocalizacion;
+    @Column(name="direccion")
+    private String direccion;
+
+    @Column(name = "nombre")
+    private String nombre;
 
     @Column(name="telefono")
     private String telefono;
 
     @OneToOne
-    @JoinColumn(name = "idcuenta", referencedColumnName = "idcuenta")
+    @JoinColumn(name = "idCuenta", referencedColumnName = "idCuenta")
     private Cuenta cuenta;
 
-    public Museo(String nombreMuseo, String urlLocalizacion, String telefono, Cuenta cuenta){
-        this.nombreMuseo = nombreMuseo;
-        this.urlLocalizacion = urlLocalizacion;
+    public Museo(String nombre, String ubicacion,String direccion, String telefono, Cuenta cuenta){
+        this.nombre = nombre;
+        this.ubicacion = ubicacion;
+        this.direccion = direccion;
         this.telefono = telefono;
         this.cuenta = cuenta;
     }
 
     public Museo(){}
 
-    public String getNombreMuseo(){
-        return this.nombreMuseo;
+    //Getters
+
+    public Integer getId(){
+        return this.idMuseo;
     }
 
-    public String getUrlLocalizacion(){
-        return this.urlLocalizacion;
+    public String getNombre(){
+        return this.nombre;
     }
+
+    public String getUbicacion(){
+        return this.ubicacion;
+    }
+
+    public String getDireccion(){
+        return this.direccion;
+    }
+
 
     public String getTelefono(){
         return this.telefono;
@@ -56,14 +71,19 @@ public class Museo {
         return this.cuenta;
     }
 
-    public void setNombreMuseo(String nombreMuseo){
-        this.nombreMuseo = nombreMuseo;
+    //Setters
+
+    public void setNombre(String nombre){
+        this.nombre = nombre;
+    }
+    public void setUbicacion(String ubicacion){
+        this.ubicacion = ubicacion;
     }
 
-    public void setUrlLocalizacion(String urlLocalizacion){
-        this.urlLocalizacion = urlLocalizacion;
+    public void setDireccion(String direccion){
+        this.direccion = direccion;
     }
-
+    
     public void setTelefono(String telefono){
         this.telefono = telefono;
     }
@@ -71,6 +91,7 @@ public class Museo {
     public void setCuenta(Cuenta cuenta){
         this.cuenta = cuenta;
     }
+    
 
     
 }
