@@ -6,6 +6,7 @@ import com.uady.apijaguar.dto.JwtDto;
 import com.uady.apijaguar.dto.LoginDto;
 import com.uady.apijaguar.dto.Mensaje;
 import com.uady.apijaguar.dto.RegisterDto;
+import com.uady.apijaguar.dto.RestoreAccountDto;
 import com.uady.apijaguar.model.Cuenta;
 import com.uady.apijaguar.security.jwt.JwtProvider;
 import com.uady.apijaguar.service.AuthService;
@@ -19,6 +20,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -73,6 +76,21 @@ public class AuthController {
         JwtDto tokenNuevo = authService.refreshToken(jwtDto);
 
         return ResponseEntity.status(HttpStatus.OK).body(tokenNuevo);
+    }
+    @GetMapping("/recover/{id}")
+    public ResponseEntity<?> recoverPassword(@PathVariable Integer id){
+        authService.recoverPassword(id, passwordEncoder);
+
+        return new ResponseEntity(new Mensaje("La contraseña se ha recuperado con exito"),HttpStatus.OK);
+    }
+
+    @PostMapping("/restore/account")
+    public ResponseEntity<?> restoreAccount(@Valid @RequestBody RestoreAccountDto request,
+                            BindingResult bindingResult)
+    {
+        authService.restoreAccount(request);
+
+        return new ResponseEntity(new Mensaje("La cuenta se ha enviado con éxito al correo"),HttpStatus.OK);
     }
 
 }

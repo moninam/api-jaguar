@@ -9,6 +9,7 @@ import com.uady.apijaguar.repository.CuentaRepository;
 import com.uady.apijaguar.util.Constantes;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.apache.logging.log4j.LogManager;
@@ -39,7 +40,9 @@ public class CuentaService {
     public Optional<Cuenta> getByAlias(String alias){
         return cuentaRepository.findByAlias(alias);
     }
-
+    public Optional<Cuenta> getByEmail(String email){
+        return cuentaRepository.findByEmail(email);
+    }
     public boolean existsByAlias(String alias){
         return cuentaRepository.existsByAlias(alias);
     }
@@ -48,8 +51,14 @@ public class CuentaService {
         return cuentaRepository.existsByEmail(email);
     }
 
+    public boolean existsByIdCuenta(Integer idCuenta){
+        return cuentaRepository.existsById(idCuenta);
+    }
+
     public void save(Cuenta cuenta){
         cuentaRepository.save(cuenta);
     }
+
+    
 
 }
