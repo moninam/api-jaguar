@@ -10,11 +10,12 @@ import com.uady.apijaguar.util.Constantes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Service
+@Transactional
 public class CuentaService {
     @Autowired
     CuentaRepository cuentaRepository;
@@ -35,5 +36,20 @@ public class CuentaService {
         }
     }
 
+    public Optional<Cuenta> getByAlias(String alias){
+        return cuentaRepository.findByAlias(alias);
+    }
+
+    public boolean existsByAlias(String alias){
+        return cuentaRepository.existsByAlias(alias);
+    }
+
+    public boolean existsByEmail(String email){
+        return cuentaRepository.existsByEmail(email);
+    }
+
+    public void save(Cuenta cuenta){
+        cuentaRepository.save(cuenta);
+    }
 
 }

@@ -13,4 +13,19 @@ public class Constantes {
     //MuseoService
     public static final String ENTITY_NOT_FOUND = "La cuenta asociada no existe";
 
+    //Auth
+    public static final String ACCES_NOT_GRANTED = "No autorizado";
+    public static final String HEADER = "Authorization";
+    public static final String BEARER = "Bearer";
+    public static final String ACCOUNT_NOT_FOUND = "La cuenta no esta registrada";
+    public static final String DO_FILTER_ERROR = "Error en al obtener el token";
+    public static final String ACCOUNT_ALREADY_EXIST = "El nombre de usuario ya esta registrado";
+    public static final String EMAIL_ALREADY_EXIST = "El correo ya esa registrado en la cuenta";
+    
+    //Exceptions
+    public static final String GENERAL_ERROR = "Ocurrio un error al realizar la operación,favor de intentarlo más tarde";
+    public static final String ACCOUNT_ERROR = "Ocurrio un error al registrar la cuenta";
+    public static final String LOGIN_ERROR = "Error al iniciar sesión, favor de intentarlo más tarde";
+    public static final String NEW_TOKEN_ERROR = "Ocurrio un error al refrescar el token";
+
 }
