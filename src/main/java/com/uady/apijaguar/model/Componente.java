@@ -4,10 +4,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 
 import com.uady.apijaguar.enums.ComponentType;
 
@@ -38,6 +42,21 @@ public class Componente {
     @Column(name="has_description")
     private Boolean hasDescription;
 
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinTable(name="componente_modelo",joinColumns = @JoinColumn(name="id_componente"),
+    inverseJoinColumns = @JoinColumn(name="id_modelo"))
+    private Modelo modelo;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinTable(name="componente_multimedia",joinColumns = @JoinColumn(name="id_componente"),
+    inverseJoinColumns = @JoinColumn(name="id_multimedia"))
+    private Multimedia multimedia;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinTable(name="componente_target",joinColumns = @JoinColumn(name="id_componente"),
+    inverseJoinColumns = @JoinColumn(name="id_target"))
+    private Target target;
+
     public Componente(String nombre, String urlImagen, String descripcion,
         Boolean hasTarget, ComponentType componentType, Boolean hasDescription)
     {
@@ -52,6 +71,9 @@ public class Componente {
     public Componente(){}
 
     //Getters
+    public Integer getIdComponente(){
+        return this.idComponente;
+    }
     public String getNombre(){
         return this.nombre;
     }
@@ -74,6 +96,18 @@ public class Componente {
 
     public Boolean hasTarget(){
         return this.hasTarget;
+    }
+
+    public Modelo getModelo(){
+        return this.modelo;
+    }
+
+    public Multimedia getMultimedia(){
+        return this.multimedia;
+    }
+    
+    public Target getTarget(){
+        return this.target;
     }
 
     //Setters
@@ -101,4 +135,15 @@ public class Componente {
         this.hasDescription = isDescription;
     }
 
+    public void setModelo(Modelo modelo){
+        this.modelo = modelo;
+    }
+
+    public void setMultimedia(Multimedia multimedia){
+        this.multimedia = multimedia;
+    }
+
+    public void setTarget(Target target){
+        this.target = target;
+    }
 }

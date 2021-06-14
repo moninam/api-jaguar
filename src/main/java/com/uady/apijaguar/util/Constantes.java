@@ -3,6 +3,8 @@ package com.uady.apijaguar.util;
 public class Constantes {
     //MuseoRequest
     public static final String EMPTY_UB = "El campo de ubicación es obligatorio";
+    public static final String EMPTY_LAT = "El campo de latitud es obligatorio";
+    public static final String EMPTY_LONG = "El campo de longitud es obligatorio";
     public static final String EMPTY_NAME = "El campo de nombre es obligatorio";
     public static final String EMPTY_PHONE = "El campo de telefono es obligatorio";
     public static final String EMPTY_TARGET = "El campo de hasTarget es obligatorio";
@@ -32,7 +34,9 @@ public class Constantes {
     public static final String RECOVER_PASSWORD_ERROR = "Ocurrio un error al recuperar la contraseña";
     public static final String RESTORE_PASSWORD_ERROR = "Ocurrio un error al cambiar la contraseña";
     public static final String RESTORE_ACCOUNT_ERROR = "Ocurrio un error al obtener la cuenta de usuario";
-    
+    public static final String MUSEO_NOT_FOUND = "No se encontro algún museo cerca de tu localidad";
+    public static final String MUSEO_NOT_EXIST = "El museo no se encuentra registrado en el sistema";
+    public static final String GRUPO_NOT_EXIST = "El grupo no se encuentra registrado en el sistema";
     //Email
     public static final String EMAIL_SEND = "Email enviado";
     public static final String EMAIL_ERROR ="Hubo un error al envíar el correo";
