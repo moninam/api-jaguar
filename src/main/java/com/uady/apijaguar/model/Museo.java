@@ -18,11 +18,14 @@ public class Museo {
     @Column(name="idMuseo")
     private Integer idMuseo;
 
-    @Column(name="ubicacion")
-    private String ubicacion;
-
     @Column(name="direccion")
     private String direccion;
+
+    @Column(name="longitud")
+    private Double longitud;
+
+    @Column(name="latitud")
+    private Double latitud;
 
     @Column(name = "nombre")
     private String nombre;
@@ -34,10 +37,11 @@ public class Museo {
     @JoinColumn(name = "idCuenta", referencedColumnName = "idCuenta")
     private Cuenta cuenta;
 
-    public Museo(String nombre, String ubicacion,String direccion, String telefono, Cuenta cuenta){
+    public Museo(String nombre, String direccion,Double latitud, Double longitud, String telefono, Cuenta cuenta){
         this.nombre = nombre;
-        this.ubicacion = ubicacion;
         this.direccion = direccion;
+        this.latitud = latitud;
+        this.longitud = longitud;
         this.telefono = telefono;
         this.cuenta = cuenta;
     }
@@ -54,14 +58,17 @@ public class Museo {
         return this.nombre;
     }
 
-    public String getUbicacion(){
-        return this.ubicacion;
-    }
-
     public String getDireccion(){
         return this.direccion;
     }
 
+    public Double getLongitud(){
+        return this.longitud;
+    }
+
+    public Double getLatitud(){
+        return this.latitud;
+    }
 
     public String getTelefono(){
         return this.telefono;
@@ -76,14 +83,18 @@ public class Museo {
     public void setNombre(String nombre){
         this.nombre = nombre;
     }
-    public void setUbicacion(String ubicacion){
-        this.ubicacion = ubicacion;
-    }
-
     public void setDireccion(String direccion){
         this.direccion = direccion;
     }
-    
+
+    public void setLatitud(Double latitud){
+        this.latitud = latitud;
+    }
+
+    public void setLongitud(Double longitud){
+        this.longitud = longitud;
+    }
+
     public void setTelefono(String telefono){
         this.telefono = telefono;
     }

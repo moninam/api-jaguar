@@ -1,5 +1,7 @@
 package com.uady.apijaguar.service;
 
+import java.util.List;
+
 import com.uady.apijaguar.exception.NotFoundException;
 import com.uady.apijaguar.model.Cuenta;
 import com.uady.apijaguar.model.Museo;
@@ -33,7 +35,8 @@ public class MuseoService {
             throw new NotFoundException(Constantes.ENTITY_NOT_FOUND);
         }
 
-        museo.setUbicacion(request.getUbicacion());
+        museo.setLatitud(request.getLatitud());
+        museo.setLongitud(request.getLongitud());
         museo.setTelefono(request.getTelefono());
         museo.setDireccion(request.getDireccion());
         museo.setNombre(request.getName());
@@ -42,5 +45,8 @@ public class MuseoService {
         museo = museoRepository.save(museo);
 
         return museo;
+    }
+    public List<Museo> getAllMuseos(){
+        return museoRepository.findAll();
     }
 }

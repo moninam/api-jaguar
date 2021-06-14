@@ -12,14 +12,17 @@ import javax.validation.constraints.Size;
 
 public class MuseoRequest {
     @NotEmpty(message=Constantes.EMPTY_UB)
-    public String ubicacion;
+    public String direccion;
 
     @NotEmpty(message =Constantes.EMPTY_PHONE)
     @Size(min = 1, max = 10)
     public String telefono;
 
-    @NotEmpty(message =Constantes.EMPTY_PHONE)
-    public String direccion;
+    @NotNull(message=Constantes.EMPTY_LAT)
+    public Double latitud;
+
+    @NotNull(message = Constantes.EMPTY_LONG)
+    public Double longitud;
 
     @NotEmpty(message =Constantes.EMPTY_NAME)
     public String nombre;
@@ -28,12 +31,13 @@ public class MuseoRequest {
     @Min(value=1,message= Constantes.NOT_VALID_ACCOUNT)
     public Integer idCuenta;
 
-    public MuseoRequest(String ubicacion, String telefono,String direccion,
-        String nombre, Integer idCuenta)
+    public MuseoRequest(String direccion, String telefono,Double latitud,
+        Double longitud,String nombre, Integer idCuenta)
     {
-        this.ubicacion = ubicacion;
-        this.telefono = telefono;
         this.direccion = direccion;
+        this.telefono = telefono;
+        this.latitud = latitud;
+        this.longitud = longitud;
         this.nombre = nombre;
         this.idCuenta = idCuenta;
     }
@@ -41,10 +45,6 @@ public class MuseoRequest {
     public MuseoRequest(){}
 
     //Getters
-    public String getUbicacion(){
-        return this.ubicacion;
-    }
-
     public String getTelefono(){
         return this.telefono;
     }
@@ -61,10 +61,16 @@ public class MuseoRequest {
         return this.idCuenta;
     }
 
-    //Setters
-    public void setUbicacion(String ubicacion){
-        this.ubicacion = ubicacion;
+    public Double getLatitud(){
+        return this.latitud;
     }
+
+    public Double getLongitud(){
+        return this.longitud;
+    }
+
+    //Setters
+    
 
     public void setTeletono(String telefono){
         this.telefono = telefono;
@@ -82,6 +88,13 @@ public class MuseoRequest {
         this.idCuenta = idCuenta;
     }
     
+    public void setLatitud(Double latitud){
+        this.latitud = latitud;
+    }
+
+    public void setLongitud(Double longitud){
+        this.longitud = longitud;
+    }
 
 
 }
