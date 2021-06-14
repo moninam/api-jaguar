@@ -22,4 +22,8 @@ public class ComponenteService {
     public List<Componente> getComponentes(){
         return componenteRepository.findAll();
     }
+
+    public List<Componente> getComponentesByIdGrupo(Integer idGrupo){
+        return null;
+    }
 }

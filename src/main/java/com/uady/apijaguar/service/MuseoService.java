@@ -49,4 +49,8 @@ public class MuseoService {
     public List<Museo> getAllMuseos(){
         return museoRepository.findAll();
     }
+
+    public Museo getById(Integer id){
+        return museoRepository.findById(id).get();
+    }
 }

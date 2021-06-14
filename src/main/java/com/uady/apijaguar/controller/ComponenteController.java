@@ -2,8 +2,10 @@ package com.uady.apijaguar.controller;
 
 import java.util.List;
 
+
 import com.uady.apijaguar.model.Componente;
 import com.uady.apijaguar.service.ComponenteService;
+import com.uady.apijaguar.service.GrupoService;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/visor")
 public class ComponenteController {
     @Autowired
     private ComponenteService componenteService;
@@ -30,4 +32,5 @@ public class ComponenteController {
         List<Componente> componente = componenteService.getComponentes();
         return ResponseEntity.status(HttpStatus.OK).body(componente);
     }
+
 }
