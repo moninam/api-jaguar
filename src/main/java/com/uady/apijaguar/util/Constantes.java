@@ -48,6 +48,7 @@ public class Constantes {
     public static final String MUSEO_NOT_FOUND = "No se encontro algún museo cerca de tu localidad";
     public static final String MUSEO_NOT_EXIST = "El museo no se encuentra registrado en el sistema";
     public static final String GRUPO_NOT_EXIST = "El grupo no se encuentra registrado en el sistema";
+    public static final String GRUPO_ERROR_R = "Ocurrio un error al registrar al grupo";
     //Email
     public static final String EMAIL_SEND = "Email enviado";
     public static final String EMAIL_ERROR ="Hubo un error al envíar el correo";

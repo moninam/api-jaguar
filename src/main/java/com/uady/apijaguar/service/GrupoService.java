@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import com.uady.apijaguar.dto.GrupoRequestDto;
 import com.uady.apijaguar.exception.NotFoundException;
+import com.uady.apijaguar.exception.OperationErrorException;
 import com.uady.apijaguar.model.Componente;
 import com.uady.apijaguar.model.Grupo;
 import com.uady.apijaguar.model.Museo;
@@ -54,8 +54,12 @@ public class GrupoService {
         return componentes;
     }
 
-    public void createGrupo(GrupoRequestDto request){
-
+    public void save(Grupo grupo){
+        try{
+            grupoRepository.save(grupo);
+        }catch(Exception e){
+            logger.error(e.getMessage());
+            throw new OperationErrorException(Constantes.GRUPO_ERROR_R);
+        }
     }
-
 }
