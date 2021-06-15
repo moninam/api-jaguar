@@ -62,4 +62,21 @@ public class GrupoService {
             throw new OperationErrorException(Constantes.GRUPO_ERROR_R);
         }
     }
+
+    public Grupo findById(Integer id){
+        Optional<Grupo> gOpt = grupoRepository.findById(id);
+
+        if (!gOpt.isPresent()){
+            throw new NotFoundException(Constantes.GRUPO_NOT_EXIST);
+        }
+        return gOpt.get();
+    }
+    public void deleteGrupo(Grupo grupo){
+        try{
+            grupoRepository.delete(grupo);
+        }catch(Exception ex){
+            logger.error(ex.getMessage());
+            throw new OperationErrorException(Constantes.GRUPO_DELETE_ERROR);
+        }
+    }
 }

@@ -49,6 +49,8 @@ public class Constantes {
     public static final String MUSEO_NOT_EXIST = "El museo no se encuentra registrado en el sistema";
     public static final String GRUPO_NOT_EXIST = "El grupo no se encuentra registrado en el sistema";
     public static final String GRUPO_ERROR_R = "Ocurrio un error al registrar al grupo";
+    public static final String GRUPO_DELETE_ERROR = "Ocurrio un error al eliminarl el grupo";
+    
     //Email
     public static final String EMAIL_SEND = "Email enviado";
     public static final String EMAIL_ERROR ="Hubo un error al envíar el correo";
@@ -64,6 +66,7 @@ public class Constantes {
     public static final String URL_IMAGEN_EMPTY = "La url de la imagen no puede ser vacia";
     public static final String MUSEO_NOT_VALID = "El id del museo es erroneo";
     public static final String MUSEO_EMPTY = "El id del museo no puede estar vacio";
+    public static final String GRUPO_DELETE = "El grupo se ha eliminado con éxito";
 
 
 
