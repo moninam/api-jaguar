@@ -30,13 +30,13 @@ public class GrupoService {
 
     public List<Grupo> getGruposByIdMuseo(Integer idMuseo){
 
-        Museo museo = museoService.getById(idMuseo);
+        Optional<Museo> museo = museoService.getById(idMuseo);
 
-        if (museo == null){
+        if (!museo.isPresent()){
             throw new NotFoundException(Constantes.MUSEO_NOT_EXIST);
         }
 
-        List<Grupo> grupos = grupoRepository.findByMuseo(museo);
+        List<Grupo> grupos = grupoRepository.findByMuseo(museo.get());
 
         return grupos;
     }
@@ -71,6 +71,10 @@ public class GrupoService {
         }
         return gOpt.get();
     }
+    public Optional<Grupo> getGrupoById(Integer id){
+        return grupoRepository.findById(id);
+    }
+    
     public void deleteGrupo(Grupo grupo){
         try{
             grupoRepository.delete(grupo);

@@ -50,6 +50,13 @@ public class Constantes {
     public static final String GRUPO_NOT_EXIST = "El grupo no se encuentra registrado en el sistema";
     public static final String GRUPO_ERROR_R = "Ocurrio un error al registrar al grupo";
     public static final String GRUPO_DELETE_ERROR = "Ocurrio un error al eliminarl el grupo";
+    public static final String COMPONENTE_ERROR_R = "Ocurrio un error al registrar el componente";
+    public static final String COMPONENTE_NOT_FOUND = "El componente no se encuentra registrado en el sistema";
+    public static final String COMPONENTE_DELETE_ERROR = "Ocurrio un error al eliminar el componente";
+    public static final String MODEL_NOT_FOUND = "El modelo no esta registrado en el sistema";
+    public static final String MULT_NOT_FOUND = "El elemento multimedia no esta registrado en el sistema";
+    public static final String COMP_ROLLBACK_ERROR = "Ocurrió un error al registrar el componente";
+    public static final String COMP_NOT_ELEMENT = "Error al registrar el componente, no tiene asociado a algún modelo o contenido multimedia";
     
     //Email
     public static final String EMAIL_SEND = "Email enviado";
@@ -68,6 +75,15 @@ public class Constantes {
     public static final String MUSEO_EMPTY = "El id del museo no puede estar vacio";
     public static final String GRUPO_DELETE = "El grupo se ha eliminado con éxito";
 
+    //COMPONENTES
+    public static final String IDGRUPO_EMPTY = "El id del grupo no puede estar vacio";
+    public static final String IDELEMENTO_EMPTY = "El id del elemento no puede estar vacio";
+    public static final String IDELEMENTO_WRONG = "El id del elemento no puede ser menor a 0";
+    public static final String MARCADOR_EMPTY = "El id del marcador no puede ser vacio";
+    public static final String TIPO_COMPONENTE_EMPTY = "El tipo de componente no puede ser vacio";
+    public static final String IDMUSEO_EMPTY = "El id del museo no puede estar vacio";
+    public static final String HAS_TARGET_INVALID = "El valor de la variable hasTarget es invalido";
+    public static final String HAS_DESCRIPTION_INVALID = "El valor de la variable hasDescription es invalido";
 
 
 }

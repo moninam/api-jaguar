@@ -1,6 +1,7 @@
 package com.uady.apijaguar.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.uady.apijaguar.exception.NotFoundException;
 import com.uady.apijaguar.exception.OperationErrorException;
@@ -51,8 +52,8 @@ public class MuseoService {
         return museoRepository.findAll();
     }
 
-    public Museo getById(Integer id){
-        return museoRepository.findById(id).get();
+    public Optional<Museo> getById(Integer id){
+        return museoRepository.findById(id);
     }
 
     public void save(Museo museo){

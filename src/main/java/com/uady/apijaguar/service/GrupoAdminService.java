@@ -1,6 +1,7 @@
 package com.uady.apijaguar.service;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import javax.transaction.Transactional;
@@ -29,16 +30,16 @@ public class GrupoAdminService {
     MuseoService museoService;
 
     public Grupo createGrupo(GrupoRequestDto request){
-        Museo museo = museoService.getById(request.getIdMuseo());
+        Optional<Museo> museo = museoService.getById(request.getIdMuseo());
 
-        if (museo == null){
+        if (!museo.isPresent()){
             throw new NotFoundException(Constantes.MUSEO_NOT_FOUND);
         }
         Date currentDate = new Date();
         Date lastUpdate = new Date();
         
         Grupo grupo = new Grupo(
-                        museo,
+                        museo.get(),
                         request.getNombre(),
                         request.getDescripcion(),
                         request.getUrlImagen(),

@@ -172,5 +172,11 @@ public class Museo {
         this.componentes = componentes;
     }
 
-    
+    //Metodos extras
+    public void addComponente(Componente c){
+        this.componentes.add(c);
+    }
+    public void removeComponente(Componente c){
+        this.componentes.remove(c);
+    }
 }
