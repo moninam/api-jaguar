@@ -4,6 +4,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import com.uady.apijaguar.exception.NotFoundException;
+import com.uady.apijaguar.exception.OperationErrorException;
 import com.uady.apijaguar.model.Cuenta;
 import com.uady.apijaguar.repository.CuentaRepository;
 import com.uady.apijaguar.util.Constantes;
@@ -57,6 +58,15 @@ public class CuentaService {
 
     public void save(Cuenta cuenta){
         cuentaRepository.save(cuenta);
+    }
+
+    public void delete(Cuenta cuenta){
+        try{
+            cuentaRepository.delete(cuenta);
+        }catch(Exception e){
+            logger.info(e.getMessage());
+            throw new OperationErrorException(Constantes.ACCOUNT_ERROR);
+        }
     }
 
     

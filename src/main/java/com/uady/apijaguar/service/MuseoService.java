@@ -3,6 +3,7 @@ package com.uady.apijaguar.service;
 import java.util.List;
 
 import com.uady.apijaguar.exception.NotFoundException;
+import com.uady.apijaguar.exception.OperationErrorException;
 import com.uady.apijaguar.model.Cuenta;
 import com.uady.apijaguar.model.Museo;
 import com.uady.apijaguar.model.request.MuseoRequest;
@@ -52,5 +53,14 @@ public class MuseoService {
 
     public Museo getById(Integer id){
         return museoRepository.findById(id).get();
+    }
+
+    public void save(Museo museo){
+        try{
+            museoRepository.save(museo);
+        }catch(Exception e){
+            logger.info(e.getMessage());
+            throw new OperationErrorException(Constantes.MUSEO_R_ERROR);
+        }
     }
 }

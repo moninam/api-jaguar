@@ -28,6 +28,7 @@ import com.uady.apijaguar.exception.NotFoundException;
 import com.uady.apijaguar.exception.OldPasswordWrongException;
 import com.uady.apijaguar.exception.OperationErrorException;
 import com.uady.apijaguar.model.Cuenta;
+import com.uady.apijaguar.model.Museo;
 import com.uady.apijaguar.model.Rol;
 import com.uady.apijaguar.security.jwt.JwtProvider;
 import com.uady.apijaguar.util.Constantes;
@@ -44,6 +45,9 @@ public class AuthService {
 
     @Autowired
     RolService rolService;
+
+    @Autowired
+    MuseoService museoService;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -87,13 +91,29 @@ public class AuthService {
             }
             cuenta.setRol(roles);
             cuentaService.save(cuenta);
+            //Almacenamos el museo 
 
-            senderService.sendRegisterEmail(cuenta.getEmail(), cuenta.getAlias());
+            Optional<Cuenta> cOpt = cuentaService.getByEmail(cuenta.getEmail());
+
+            if (cOpt.isPresent()){
+                Museo museo = new Museo(
+                                nuevoUsuario.getNombre(),
+                                nuevoUsuario.getDireccion(),
+                                nuevoUsuario.getLatitud(),
+                                nuevoUsuario.getLongitud(),
+                                nuevoUsuario.getTelefono(),
+                                cOpt.get()
+                                );
+                museoService.save(museo);
+                senderService.sendRegisterEmail(cuenta.getEmail(), cuenta.getAlias());
+            } else{
+                throw new OperationErrorException(Constantes.ACCOUNT_ERROR);
+            }
             return cuenta;
         } catch(Exception exc){
-            logger.error(exc);
             exc.printStackTrace();
-            //logger.error("Error: {}", exc.getMessage());
+            logger.error("Error: {}", exc.getMessage());
+            rollbackAction(nuevoUsuario.getEmail());
             throw new OperationErrorException(Constantes.ACCOUNT_ERROR);
         }
         
@@ -198,5 +218,11 @@ public class AuthService {
         }
     }
     
+    private void rollbackAction(String email){
+        Optional<Cuenta> cuenta = cuentaService.getByEmail(email);
+        if (cuenta.isPresent()){
+            cuentaService.delete(cuenta.get());
+        }
+    }
 
 }

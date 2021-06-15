@@ -71,6 +71,12 @@ public class Museo {
     @JsonIgnore
     private Set<Target> targets;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="componente_museo",joinColumns = @JoinColumn(name="id_museo"),
+    inverseJoinColumns = @JoinColumn(name="id_componente"))
+    @JsonIgnore
+    private Set<Componente> componentes;
+
     public Museo(String nombre, String direccion,Double latitud, Double longitud, String telefono, Cuenta cuenta){
         this.nombre = nombre;
         this.direccion = direccion;
@@ -123,6 +129,9 @@ public class Museo {
     public Set<Target> getTargets(){
         return this.targets;
     }
+    public Set<Componente> getComponentes(){
+        return this.componentes;
+    }
     //Setters
 
     public void setNombre(String nombre){
@@ -158,6 +167,9 @@ public class Museo {
     }
     public void setTarget(Set<Target> targets){
         this.targets = targets;
+    }
+    public void setComponentes(Set<Componente> componentes){
+        this.componentes = componentes;
     }
 
     

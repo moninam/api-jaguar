@@ -12,6 +12,16 @@ public class Constantes {
     public static final String EMPTY_TYPE_COMPONENT = "El campo de Component Type es obligatorio";
     public static final String EMPTY_ACCOUNT = "El campo de cuenta es obligatorio";
     public static final String NOT_VALID_ACCOUNT = "El número de cuenta debe tener por lo menos un digito";
+    public static final String EMPTY_URL_IMAGEN = "El url de imagen no puede ser vacio";
+    public static final String EMPTY_ALIAS = "El alias no puede estar vacio";
+    public static final String EMPTY_EMAIL = "El email no puede estar vacio";
+    public static final String EMPTY_PASSWORD = "La contraseña no puede estar vacia";
+    public static final String EMPTY_DIRECTION = "La direccion no puede estar vacia";
+    public static final String EMPTY_TELEFONO = "El telefono no puede estar vacio";
+    public static final String EMPTY_LATITUD = "El formato de la latitud es erronea";
+    public static final String EMPTY_LONGITUD = "El formato de la longitud es erroneo";
+    public static final String EMPTY_NOMBRE = "El nombre no puede estar vacio";
+    public static final String EMAIL_ERROR_FORMAT = "El formato de email es erroneo";
     //MuseoService
     public static final String ENTITY_NOT_FOUND = "La cuenta asociada no existe";
 
@@ -29,6 +39,7 @@ public class Constantes {
     //Exceptions
     public static final String GENERAL_ERROR = "Ocurrio un error al realizar la operación,favor de intentarlo más tarde";
     public static final String ACCOUNT_ERROR = "Ocurrio un error al registrar la cuenta";
+    public static final String MUSEO_R_ERROR = "Ocurrio un error al registrar el museo";
     public static final String LOGIN_ERROR = "Error al iniciar sesión, favor de intentarlo más tarde";
     public static final String NEW_TOKEN_ERROR = "Ocurrio un error al refrescar el token";
     public static final String RECOVER_PASSWORD_ERROR = "Ocurrio un error al recuperar la contraseña";
@@ -44,6 +55,15 @@ public class Constantes {
     public static final String EMAIL_REGISTER_SUBJECT = "Registro de cuenta";
     public static final String EMAIL_ACCOUNT_RESTORE = "Recuperación de cuenta";
     public static final String EMAIL_RESTORE_SUBJECT = "Cambio de contraseña";
+
+    //MODULO ADMIN
+    //GRUPOS
+    public static final String NOMBRE_EMPTY = "El nombre no puede ser vacio";
+    public static final String DESCRIPCION_EMPTY = "La descripción no puede ser vacia";
+    public static final String URL_IMAGEN_EMPTY = "La url de la imagen no puede ser vacia";
+    public static final String MUSEO_NOT_VALID = "El id del museo es erroneo";
+    public static final String MUSEO_EMPTY = "El id del museo no puede estar vacio";
+
 
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import com.uady.apijaguar.dto.GrupoRequestDto;
 import com.uady.apijaguar.exception.NotFoundException;
 import com.uady.apijaguar.model.Componente;
 import com.uady.apijaguar.model.Grupo;
@@ -51,6 +52,10 @@ public class GrupoService {
         Set<Componente> componentes = grupoFinal.getComponentes();
 
         return componentes;
+    }
+
+    public void createGrupo(GrupoRequestDto request){
+
     }
 
 }
