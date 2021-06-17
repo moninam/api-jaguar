@@ -175,6 +175,7 @@ public class ComponenteAdminService {
 
     }
     
+    @Transactional(rollbackFor = Exception.class)
     public DeleteDto deleteComponente(Integer id,Integer museoId){
         Optional<Museo> museo = museoService.getById(museoId);
         Optional<Componente> componente = componenteService.getById(id);

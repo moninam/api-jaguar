@@ -1,5 +1,6 @@
 package com.uady.apijaguar.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.uady.apijaguar.model.GrupoComponente;
@@ -64,5 +65,14 @@ public class JoinComponentService {
     public void deleteTarget(TargetComponente target){
         this.targetComponenteRepository.delete(target);
     }
-    
+    public List<ModeloComponente> getComponentesByModelo(Integer idModelo){
+        return modeloComponenteRepository.findByIdModelo(idModelo);
+    }
+    public List<MultimediaComponente> getComponentesByMultimedia(Integer idMultimedia){
+        return multimediaComponenteRepository.findByIdMultimedia(idMultimedia);
+    }
+    public List<TargetComponente> getComponentesByTarget(Integer idTarget){
+        return targetComponenteRepository.findByIdTarget(idTarget);
+    }
+
 }

@@ -88,4 +88,25 @@ public class Constantes {
     public static final String COMPONENTE_DELETE = "El componente ha sido eliminado con éxito";
     public static final String COMPONENTE_GRUPO_NOTFOUND = "El componente no tiene asociado ningún grupo";
 
+    //MODELOS
+    public static final String URL_MODELO_EMPTY = "La url del modelo no puede estar vacía";
+    public static final String NOMBRE_ANIMACION_EMPTY = "El nombre de la animación no puede estar vacío";
+    public static final String HAS_ROTATION_EMPTY = "La variable hasRotation no puede estar vacía";
+    public static final String HAS_MOVEMENT_EMPTY = "La variable hasMovement no puede estar vacía";
+    public static final String HAS_RESIZE_EMPTY = "La variable hasResize no puede estar vacía";
+    public static final String TEXTURA_PATH_EMPTY = "El path de la textura no puede estar vacío";
+    public static final String MODELO_NOT_FOUND = "El modelo no esta registrado en el sistema";
+    public static final String MODELO_DELETE_SUCCESS = "El modelo ha sido eliminado con éxito";
+    public static final String MODELO_CANT_DELETE = "No se puede eliminar el modelo, debido a que esta asociado a un componente";
+    //MULTIMEDIA
+    public static final String URL_UBICACION_EMPTY = "La url del componente multimedia no puede estar vacía";
+    public static final String TIPO_MULT_EMPTY = "El tipo de componente multimedia no puede estar vacío";
+    public static final String NOMBRE_MULT_EMPTY = "El nombre del elemento multimedia no puede estar vacío";
+    public static final String MULT_DELETE_SUCCESS = "El componente multimedia ha sido eliminado con éxito";
+    public static final String MULT_CANT_DELETE = "No se puede eliminar el elemento multimedia, debido a que esta asociado a un componente";
+
+    //TARGET
+    public static final String URL_TARGET_EMPTY = "La url del target no puede estar vacía";
+    public static final String TARGET_NOT_FOUND = "El target no esta registrado en el sistema";
+    public static final String TARGET_DELETE_SUCCESS = "Se elimino correctamente el target";
 }

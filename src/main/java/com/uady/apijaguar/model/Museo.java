@@ -179,4 +179,32 @@ public class Museo {
     public void removeComponente(Componente c){
         this.componentes.remove(c);
     }
+    public void addModelo(Modelo m){
+        this.modelos.add(m);
+    }
+    public void removeModelo(Modelo m){
+        this.modelos.remove(m);
+    }
+    public void addMultimedia(Multimedia mult){
+        this.multimedia.add(mult);
+    }
+    public void removeMultimedia(Multimedia mult){
+        this.multimedia.remove(mult);
+    }
+    public void addTarget(Target t){
+        this.targets.add(t);
+    }
+    public void removeTarget(Target t){
+        this.targets.remove(t);
+    }
+
+    public boolean containsModel(Modelo m){
+        return this.modelos.contains(m);
+    }
+    public boolean containsMult(Multimedia m){
+        return this.multimedia.contains(m);
+    }
+    public boolean containsTarget(Target t){
+        return this.targets.contains(t);
+    }
 }
