@@ -92,6 +92,7 @@ public class Grupo {
         return this.componentes;
     }
 
+
     //SETTERS
     public void setMuseo(Museo museo){
         this.museo = museo;
@@ -114,5 +115,11 @@ public class Grupo {
     }
     public void setComponentes(Set<Componente> componentes){
         this.componentes = componentes;
+    }
+    public void addComponente(Componente c){
+        this.componentes.add(c);
+    }
+    public void removeComponente(Componente c){
+        this.componentes.remove(c);
     }
 }

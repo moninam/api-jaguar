@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import com.uady.apijaguar.dto.GrupoRequestDto;
 import com.uady.apijaguar.exception.NotFoundException;
+import com.uady.apijaguar.exception.OperationErrorException;
 import com.uady.apijaguar.model.Componente;
 import com.uady.apijaguar.model.Grupo;
 import com.uady.apijaguar.model.Museo;
@@ -30,13 +30,13 @@ public class GrupoService {
 
     public List<Grupo> getGruposByIdMuseo(Integer idMuseo){
 
-        Museo museo = museoService.getById(idMuseo);
+        Optional<Museo> museo = museoService.getById(idMuseo);
 
-        if (museo == null){
+        if (!museo.isPresent()){
             throw new NotFoundException(Constantes.MUSEO_NOT_EXIST);
         }
 
-        List<Grupo> grupos = grupoRepository.findByMuseo(museo);
+        List<Grupo> grupos = grupoRepository.findByMuseo(museo.get());
 
         return grupos;
     }
@@ -54,8 +54,33 @@ public class GrupoService {
         return componentes;
     }
 
-    public void createGrupo(GrupoRequestDto request){
-
+    public void save(Grupo grupo){
+        try{
+            grupoRepository.save(grupo);
+        }catch(Exception e){
+            logger.error(e.getMessage());
+            throw new OperationErrorException(Constantes.GRUPO_ERROR_R);
+        }
     }
 
+    public Grupo findById(Integer id){
+        Optional<Grupo> gOpt = grupoRepository.findById(id);
+
+        if (!gOpt.isPresent()){
+            throw new NotFoundException(Constantes.GRUPO_NOT_EXIST);
+        }
+        return gOpt.get();
+    }
+    public Optional<Grupo> getGrupoById(Integer id){
+        return grupoRepository.findById(id);
+    }
+    
+    public void deleteGrupo(Grupo grupo){
+        try{
+            grupoRepository.delete(grupo);
+        }catch(Exception ex){
+            logger.error(ex.getMessage());
+            throw new OperationErrorException(Constantes.GRUPO_DELETE_ERROR);
+        }
+    }
 }

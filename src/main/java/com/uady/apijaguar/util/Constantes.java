@@ -48,6 +48,17 @@ public class Constantes {
     public static final String MUSEO_NOT_FOUND = "No se encontro algún museo cerca de tu localidad";
     public static final String MUSEO_NOT_EXIST = "El museo no se encuentra registrado en el sistema";
     public static final String GRUPO_NOT_EXIST = "El grupo no se encuentra registrado en el sistema";
+    public static final String GRUPO_ERROR_R = "Ocurrio un error al registrar al grupo";
+    public static final String GRUPO_DELETE_ERROR = "Ocurrio un error al eliminarl el grupo";
+    public static final String COMPONENTE_ERROR_R = "Ocurrio un error al registrar el componente";
+    public static final String COMPONENTE_NOT_FOUND = "El componente no se encuentra registrado en el sistema";
+    public static final String COMPONENTE_DELETE_ERROR = "Ocurrio un error al eliminar el componente";
+    public static final String MODEL_NOT_FOUND = "El modelo no esta registrado en el sistema";
+    public static final String MULT_NOT_FOUND = "El elemento multimedia no esta registrado en el sistema";
+    public static final String COMP_ROLLBACK_ERROR = "Ocurrió un error al registrar el componente";
+    public static final String COMP_NOT_ELEMENT = "Error al registrar el componente, no tiene asociado a algún modelo o contenido multimedia";
+    public static final String TARGET_DO_NOT_EXIST = "El target ingresado no existe";
+    
     //Email
     public static final String EMAIL_SEND = "Email enviado";
     public static final String EMAIL_ERROR ="Hubo un error al envíar el correo";
@@ -63,7 +74,39 @@ public class Constantes {
     public static final String URL_IMAGEN_EMPTY = "La url de la imagen no puede ser vacia";
     public static final String MUSEO_NOT_VALID = "El id del museo es erroneo";
     public static final String MUSEO_EMPTY = "El id del museo no puede estar vacio";
+    public static final String GRUPO_DELETE = "El grupo se ha eliminado con éxito";
 
+    //COMPONENTES
+    public static final String IDGRUPO_EMPTY = "El id del grupo no puede estar vacio";
+    public static final String IDELEMENTO_EMPTY = "El id del elemento no puede estar vacio";
+    public static final String IDELEMENTO_WRONG = "El id del elemento no puede ser menor a 0";
+    public static final String MARCADOR_EMPTY = "El id del marcador no puede ser vacio";
+    public static final String TIPO_COMPONENTE_EMPTY = "El tipo de componente no puede ser vacio";
+    public static final String IDMUSEO_EMPTY = "El id del museo no puede estar vacio";
+    public static final String HAS_TARGET_INVALID = "El valor de la variable hasTarget es invalido";
+    public static final String HAS_DESCRIPTION_INVALID = "El valor de la variable hasDescription es invalido";
+    public static final String COMPONENTE_DELETE = "El componente ha sido eliminado con éxito";
+    public static final String COMPONENTE_GRUPO_NOTFOUND = "El componente no tiene asociado ningún grupo";
 
+    //MODELOS
+    public static final String URL_MODELO_EMPTY = "La url del modelo no puede estar vacía";
+    public static final String NOMBRE_ANIMACION_EMPTY = "El nombre de la animación no puede estar vacío";
+    public static final String HAS_ROTATION_EMPTY = "La variable hasRotation no puede estar vacía";
+    public static final String HAS_MOVEMENT_EMPTY = "La variable hasMovement no puede estar vacía";
+    public static final String HAS_RESIZE_EMPTY = "La variable hasResize no puede estar vacía";
+    public static final String TEXTURA_PATH_EMPTY = "El path de la textura no puede estar vacío";
+    public static final String MODELO_NOT_FOUND = "El modelo no esta registrado en el sistema";
+    public static final String MODELO_DELETE_SUCCESS = "El modelo ha sido eliminado con éxito";
+    public static final String MODELO_CANT_DELETE = "No se puede eliminar el modelo, debido a que esta asociado a un componente";
+    //MULTIMEDIA
+    public static final String URL_UBICACION_EMPTY = "La url del componente multimedia no puede estar vacía";
+    public static final String TIPO_MULT_EMPTY = "El tipo de componente multimedia no puede estar vacío";
+    public static final String NOMBRE_MULT_EMPTY = "El nombre del elemento multimedia no puede estar vacío";
+    public static final String MULT_DELETE_SUCCESS = "El componente multimedia ha sido eliminado con éxito";
+    public static final String MULT_CANT_DELETE = "No se puede eliminar el elemento multimedia, debido a que esta asociado a un componente";
 
+    //TARGET
+    public static final String URL_TARGET_EMPTY = "La url del target no puede estar vacía";
+    public static final String TARGET_NOT_FOUND = "El target no esta registrado en el sistema";
+    public static final String TARGET_DELETE_SUCCESS = "Se elimino correctamente el target";
 }
