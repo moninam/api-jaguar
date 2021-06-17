@@ -58,6 +58,7 @@ public class Constantes {
     public static final String COMP_ROLLBACK_ERROR = "Ocurrió un error al registrar el componente";
     public static final String COMP_NOT_ELEMENT = "Error al registrar el componente, no tiene asociado a algún modelo o contenido multimedia";
     public static final String TARGET_DO_NOT_EXIST = "El target ingresado no existe";
+    
     //Email
     public static final String EMAIL_SEND = "Email enviado";
     public static final String EMAIL_ERROR ="Hubo un error al envíar el correo";
@@ -84,6 +85,6 @@ public class Constantes {
     public static final String IDMUSEO_EMPTY = "El id del museo no puede estar vacio";
     public static final String HAS_TARGET_INVALID = "El valor de la variable hasTarget es invalido";
     public static final String HAS_DESCRIPTION_INVALID = "El valor de la variable hasDescription es invalido";
-
+    public static final String COMPONENTE_DELETE = "El componente ha sido eliminado con éxito";
 
 }

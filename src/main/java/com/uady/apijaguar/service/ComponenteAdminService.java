@@ -7,6 +7,7 @@ import java.util.Set;
 
 import com.uady.apijaguar.dto.ComponenteRequestDto;
 import com.uady.apijaguar.dto.ComponenteUpdateDto;
+import com.uady.apijaguar.dto.DeleteDto;
 import com.uady.apijaguar.enums.ComponentType;
 import com.uady.apijaguar.exception.NotFoundException;
 import com.uady.apijaguar.exception.OperationErrorException;
@@ -172,6 +173,52 @@ public class ComponenteAdminService {
             throw new OperationErrorException(Constantes.ACCOUNT_ERROR);
         }
 
+    }
+    
+    public DeleteDto deleteComponente(Integer id,Integer museoId){
+        Optional<Museo> museo = museoService.getById(museoId);
+        Optional<Componente> componente = componenteService.getById(id);
+        
+        
+        if (!museo.isPresent()){
+            throw new NotFoundException(Constantes.MUSEO_NOT_FOUND);
+        }
+
+        if (!componente.isPresent()){
+            throw new NotFoundException(Constantes.ACCOUNT_NOT_FOUND);
+        }
+
+        Museo m = museo.get();
+        Componente eliminarC = componente.get();
+
+        Optional<GrupoComponente> gc = joinComponentService.getGrupoByIdComponente(eliminarC.getIdComponente());
+
+        //Eliminamos referencias en el grupo
+        if (gc.isPresent()){
+            Integer  idG = gc.get().getIdGrupo();
+            Optional<Grupo> grupo = grupoService.getGrupoById(idG);
+
+            if (grupo.isPresent()){
+                grupo.get().removeComponente(eliminarC);
+                grupoService.save(grupo.get());
+            }
+
+        }
+        m.removeComponente(eliminarC);
+        /*
+        eliminarC.setModelo(null);
+        eliminarC.setMultimedia(null);
+        eliminarC.setTarget(null);
+
+        componenteService.save(eliminarC);
+        */
+        componenteService.deleteComponente(eliminarC);
+
+        DeleteDto delete = new DeleteDto(200,Constantes.COMPONENTE_DELETE);
+
+        return delete;
+           
+        
     }
     private void updateGrupo(Integer idComponente, Integer idGrupoN){
         Componente componente = componenteService.findById(idComponente);
