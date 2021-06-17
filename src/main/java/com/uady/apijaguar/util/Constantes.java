@@ -86,5 +86,6 @@ public class Constantes {
     public static final String HAS_TARGET_INVALID = "El valor de la variable hasTarget es invalido";
     public static final String HAS_DESCRIPTION_INVALID = "El valor de la variable hasDescription es invalido";
     public static final String COMPONENTE_DELETE = "El componente ha sido eliminado con éxito";
+    public static final String COMPONENTE_GRUPO_NOTFOUND = "El componente no tiene asociado ningún grupo";
 
 }

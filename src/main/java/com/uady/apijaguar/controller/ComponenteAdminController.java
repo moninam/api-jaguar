@@ -8,6 +8,7 @@ import com.uady.apijaguar.dto.ComponenteRequestDto;
 import com.uady.apijaguar.dto.ComponenteUpdateDto;
 import com.uady.apijaguar.dto.DeleteDto;
 import com.uady.apijaguar.model.Componente;
+import com.uady.apijaguar.model.Grupo;
 import com.uady.apijaguar.service.ComponenteAdminService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +56,11 @@ public class ComponenteAdminController {
         DeleteDto delete = componenteService.deleteComponente(id, museoId);
 
         return ResponseEntity.status(HttpStatus.OK).body(delete);
+    }
+    @GetMapping("/componente/{id}/grupo")
+    public ResponseEntity<Grupo> findGrupoByComponent(@PathVariable Integer id){
+        Grupo grupo = componenteService.findGrupoByComponente(id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(grupo);
     }
 }

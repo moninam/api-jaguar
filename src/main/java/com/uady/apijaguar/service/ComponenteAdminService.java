@@ -220,6 +220,17 @@ public class ComponenteAdminService {
            
         
     }
+    
+    public Grupo findGrupoByComponente(Integer idComponente){
+        Optional<GrupoComponente> gc = joinComponentService.getGrupoByIdComponente(idComponente);
+
+        if (!gc.isPresent()){
+            throw new NotFoundException(Constantes.COMPONENTE_GRUPO_NOTFOUND);
+        }
+        Grupo g = grupoService.findById(gc.get().getIdGrupo());
+
+        return g;
+    }
     private void updateGrupo(Integer idComponente, Integer idGrupoN){
         Componente componente = componenteService.findById(idComponente);
         Optional<GrupoComponente> grupoC = joinComponentService.getGrupoByIdComponente(idComponente);
