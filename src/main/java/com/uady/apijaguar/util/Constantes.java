@@ -57,7 +57,7 @@ public class Constantes {
     public static final String MULT_NOT_FOUND = "El elemento multimedia no esta registrado en el sistema";
     public static final String COMP_ROLLBACK_ERROR = "Ocurrió un error al registrar el componente";
     public static final String COMP_NOT_ELEMENT = "Error al registrar el componente, no tiene asociado a algún modelo o contenido multimedia";
-    
+    public static final String TARGET_DO_NOT_EXIST = "El target ingresado no existe";
     //Email
     public static final String EMAIL_SEND = "Email enviado";
     public static final String EMAIL_ERROR ="Hubo un error al envíar el correo";

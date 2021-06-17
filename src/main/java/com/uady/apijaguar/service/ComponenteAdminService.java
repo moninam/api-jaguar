@@ -4,29 +4,32 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import javax.transaction.Transactional;
 
 import com.uady.apijaguar.dto.ComponenteRequestDto;
+import com.uady.apijaguar.dto.ComponenteUpdateDto;
 import com.uady.apijaguar.enums.ComponentType;
 import com.uady.apijaguar.exception.NotFoundException;
 import com.uady.apijaguar.exception.OperationErrorException;
 import com.uady.apijaguar.model.Componente;
 import com.uady.apijaguar.model.Grupo;
+import com.uady.apijaguar.model.GrupoComponente;
 import com.uady.apijaguar.model.Modelo;
+import com.uady.apijaguar.model.ModeloComponente;
 import com.uady.apijaguar.model.Multimedia;
+import com.uady.apijaguar.model.MultimediaComponente;
 import com.uady.apijaguar.model.Museo;
 import com.uady.apijaguar.model.Target;
+import com.uady.apijaguar.model.TargetComponente;
 import com.uady.apijaguar.repository.ComponenteRepository;
 import com.uady.apijaguar.util.Constantes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Service
-@Transactional
 public class ComponenteAdminService {
     @Autowired
     ComponenteRepository componenteRepository;
@@ -49,6 +52,9 @@ public class ComponenteAdminService {
     @Autowired
     TargetService targetService;
 
+    @Autowired
+    JoinComponentService joinComponentService;
+
     private Logger logger = LogManager.getLogger(this.getClass());
 
     public Set<Componente> getComponentesByIdMuseo(Integer id){
@@ -61,6 +67,8 @@ public class ComponenteAdminService {
 
         return componentes;
     }
+    //FUNCIONES PARA AGREGAR UN NUEVO COMPONENTE
+    @Transactional(rollbackFor = Exception.class)
     public Componente createComponente(ComponenteRequestDto request){
         Optional<Museo> museo = museoService.getById(request.getIdMuseo());
 
@@ -89,6 +97,7 @@ public class ComponenteAdminService {
         mComponent.addComponente(nuevoC);
         return nuevoC;
     }
+    
     private void saveGrupo(Integer idComponent, Integer idGrupo){
         Componente componente = componenteService.findById(idComponent);
         Optional<Grupo> grupo = grupoService.getGrupoById(idGrupo);
@@ -114,7 +123,6 @@ public class ComponenteAdminService {
             componente.setMultimedia(mult);
             componenteService.save(componente);
         } else {
-            rollback(componente);
             throw new OperationErrorException(Constantes.COMP_NOT_ELEMENT);
         }
     }
@@ -127,14 +135,136 @@ public class ComponenteAdminService {
             componenteService.save(componente);
         }
     }
-    private void rollback(Componente componente){
     
-        if (componente != null){
-            try{
-                componenteService.deleteComponente(componente);
-            }catch(OperationErrorException ex){
-                throw new OperationErrorException(Constantes.COMP_ROLLBACK_ERROR);
+    @Transactional(rollbackFor = Exception.class)
+    public Componente updateComponente(ComponenteUpdateDto request, Integer id){
+        Optional<Componente> componente = componenteService.getById(id);
+
+        if (!componente.isPresent()){
+            throw new NotFoundException(Constantes.COMPONENTE_NOT_FOUND);
+        }
+       
+        try{
+            
+            //Generar componente y guardarlo
+            Componente temporal = componente.get();
+            verifyElement(temporal, request.getTipoComponente());
+            temporal.setNombre(request.getNombre());
+            temporal.setUrlImagen(request.getUrlImagen());
+            temporal.setDescription(request.getDescripcion());
+            temporal.isTarget(request.getHasTarget());
+            temporal.setComponentType(request.getTipoComponente());
+            temporal.isDescription(request.getHasDescription());
+
+            Integer idComponente = temporal.getIdComponente();
+
+            
+            updateElement(idComponente,request.getIdElemento(),request.getTipoComponente());
+            updateGrupo(idComponente, request.getIdGrupo());
+            updateTarget(idComponente, request.getIdMarcador());
+            
+            componenteService.save(temporal);
+
+        
+            return temporal;
+        } catch (Exception e){
+            logger.error(e.getMessage());
+            throw new OperationErrorException(Constantes.ACCOUNT_ERROR);
+        }
+
+    }
+    private void updateGrupo(Integer idComponente, Integer idGrupoN){
+        Componente componente = componenteService.findById(idComponente);
+        Optional<GrupoComponente> grupoC = joinComponentService.getGrupoByIdComponente(idComponente);
+
+        Optional<Grupo> grupo = grupoService.getGrupoById(idGrupoN);
+
+        if(grupo.isPresent()){
+            if (!grupoC.isPresent()){
+                Grupo temp = grupo.get();
+                temp.addComponente(componente);
+                componenteService.save(componente);
+            } else if (!(grupoC.get().getIdGrupo().equals(idGrupoN))){
+                
+                GrupoComponente grupoComponente = grupoC.get();
+
+                grupoComponente.setIdGrupo(grupo.get().getIdGrupo());
+                joinComponentService.saveGrupo(grupoComponente);
+                
+               
+            }
+        } else if (grupoC.isPresent()){
+            if (!(grupoC.get().getIdGrupo().equals(idGrupoN)) && !(idGrupoN.equals(-1))){
+                logger.error("El grupo no existe");
+                throw new NotFoundException(Constantes.GRUPO_NOT_EXIST);
+            } else if (idGrupoN.equals(-1)){
+                GrupoComponente gC = grupoC.get();
+                Optional<Grupo> g = grupoService.getGrupoById(gC.getIdGrupo());
+                if (g.isPresent()){
+                    Grupo grupoT = g.get();
+                    grupoT.removeComponente(componente);
+                }
             }
         }
     }
+    private void updateElement(Integer idComponent, Integer idElement, ComponentType type){
+        Componente componente = componenteService.findById(idComponent);
+        Optional<ModeloComponente> mComponente = joinComponentService.getModeloByIdComponente(idComponent);
+        Optional<MultimediaComponente> multComponente = joinComponentService.getMultimediaByIdComponente(idComponent);
+        
+        if (type.equals(ComponentType.MODELO)){
+            Modelo modelo = modeloService.findById(idElement);
+            if (!mComponente.isPresent() || 
+                (!(mComponente.get().getIdModelo().equals(idElement))) ){
+
+                componente.setModelo(modelo);
+                componenteService.save(componente);
+            }
+        } else if (type.equals(ComponentType.IMAGEN) || type.equals(ComponentType.VIDEO)){
+            Multimedia mult = multimediaService.findById(idElement);
+            if (!multComponente.isPresent() || 
+                (!(multComponente.get().getIdMultimedia().equals(idElement))) ){
+               
+                componente.setMultimedia(mult);
+                componenteService.save(componente);
+            }
+        } 
+    }
+    private void updateTarget(Integer idComponente, Integer idTargetN){
+        Componente componente = componenteService.findById(idComponente);
+        Optional<TargetComponente> targetC = joinComponentService.getTargetByIdComponente(idComponente);
+
+        Optional<Target> target = targetService.findById(idTargetN);
+
+        if(target.isPresent()){
+            if (!targetC.isPresent() ||
+                (!(targetC.get().getIdTarget()).equals(idTargetN))){
+               Target temp = target.get();
+                componente.setTarget(temp);
+                componenteService.save(componente);
+            } 
+        } else if (targetC.isPresent()){
+            if (!(targetC.get().getIdTarget().equals(idTargetN)) && !(idTargetN.equals(-1))){
+                logger.error("Target no existe");
+                throw new NotFoundException(Constantes.TARGET_DO_NOT_EXIST);
+            } else if(idTargetN.equals(-1)){
+                componente.setTarget(null);
+            }
+        }
+    }
+    
+    private void verifyElement(Componente componente,ComponentType type){
+        if (!componente.getComponentType().equals(type)){
+            logger.info("PASA JAJAJAJ");
+            if (componente.getComponentType().equals(ComponentType.MODELO)){
+                logger.info("PASA MODELOJ");
+                componente.setModelo(null);
+            } else if (componente.getComponentType().equals(ComponentType.IMAGEN) || componente.getComponentType().equals(ComponentType.VIDEO)){
+                logger.info("PASA MULTIMEDIA");
+                componente.setMultimedia(null);
+            } 
+        }
+        componenteService.save(componente);
+    }
+
 }
