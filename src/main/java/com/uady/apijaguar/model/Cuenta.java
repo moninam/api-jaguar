@@ -87,7 +87,7 @@ public class Cuenta {
         return this.secret;
     }
 
-    public Boolean isBanned(){
+    public Boolean getIsBanned(){
         return this.isBanned;
     }
 

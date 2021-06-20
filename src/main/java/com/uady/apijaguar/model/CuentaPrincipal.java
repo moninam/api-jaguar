@@ -44,7 +44,7 @@ public class CuentaPrincipal implements UserDetails {
             cuenta.getAlias(),
             cuenta.getPassword(),
             cuenta.getSecret(),
-            cuenta.isBanned(),
+            cuenta.getIsBanned(),
             cuenta.getRegisterDate(),
             cuenta.getLastUpdate(),
             authorities

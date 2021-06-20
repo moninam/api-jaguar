@@ -90,11 +90,11 @@ public class Componente {
         return this.componentType;
     }
 
-    public Boolean hasDescripcion(){
+    public Boolean getHasDescripcion(){
         return this.hasDescription;
     }
 
-    public Boolean hasTarget(){
+    public Boolean getHasTarget(){
         return this.hasTarget;
     }
 

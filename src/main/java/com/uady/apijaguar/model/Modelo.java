@@ -64,13 +64,13 @@ public class Modelo {
     public String getNombreAnimacion(){
         return this.nombreAnimacion;
     }
-    public Boolean hasRotation(){
+    public Boolean getHasRotation(){
         return this.hasRotation;
     }
-    public Boolean hasMovement(){
+    public Boolean getHasMovement(){
         return this.hasMovement;
     }
-    public Boolean hasResize(){
+    public Boolean getHasResize(){
         return this.hasResize;
     }
     public String getTexturaPath(){
