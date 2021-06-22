@@ -64,4 +64,15 @@ public class MuseoService {
             throw new OperationErrorException(Constantes.MUSEO_R_ERROR);
         }
     }
+    public Optional<Museo> getByCuenta(Cuenta cuenta){
+        return this.museoRepository.findByCuenta(cuenta);
+    }
+    public Museo saveM(Museo museo){
+        try{
+            return museoRepository.save(museo);
+        }catch(Exception e){
+            logger.info(e.getMessage());
+            throw new OperationErrorException(Constantes.MUSEO_R_ERROR);
+        }
+    }
 }
