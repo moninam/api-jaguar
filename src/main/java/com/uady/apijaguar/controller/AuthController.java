@@ -12,6 +12,7 @@ import com.uady.apijaguar.security.jwt.JwtProvider;
 import com.uady.apijaguar.service.AuthService;
 import com.uady.apijaguar.service.CuentaService;
 import com.uady.apijaguar.service.RolService;
+import com.uady.apijaguar.service.servicios.FileTransferService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -42,6 +47,11 @@ public class AuthController {
 
     @Autowired
     JwtProvider jwtProvider;
+
+    @Autowired
+	private FileTransferService fileTransferService;
+
+    private Logger logger = LogManager.getLogger(this.getClass());
 
     @PostMapping("/register")
     public ResponseEntity<?> nuevo(@Valid @RequestBody RegisterDto nuevoUsuario,
