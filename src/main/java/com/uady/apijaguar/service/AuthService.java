@@ -17,6 +17,9 @@ import java.util.Set;
 import java.util.UUID;
 
 import java.text.ParseException;
+
+import com.uady.apijaguar.dto.AccountInformationDto;
+import com.uady.apijaguar.dto.InformationDto;
 import com.uady.apijaguar.dto.JwtDto;
 import com.uady.apijaguar.dto.LoginDto;
 import com.uady.apijaguar.dto.RegisterDto;
@@ -218,6 +221,68 @@ public class AuthService {
         }
     }
     
+    public InformationDto getDataInformation(String name){
+        Optional<Cuenta> cuenta = cuentaService.getByAlias(name);
+
+        if (!cuenta.isPresent()){
+            throw new NotFoundException(Constantes.ACCOUNT_NOT_FOUND);
+        }
+        Cuenta real = cuenta.get();
+        Optional<Museo> museo = museoService.getByCuenta(real);
+
+        if(!museo.isPresent()){
+            throw new NotFoundException(Constantes.MUSEO_NOT_FOUND);
+        }
+        logger.info("MUSEO" + museo.get().getNombre());
+        InformationDto data = new InformationDto(museo.get().getId());
+        return data;
+    }
+    public AccountInformationDto getAccountInformation(String alias){
+        Optional<Cuenta> cuenta = cuentaService.getByAlias(alias);
+
+        if (!cuenta.isPresent()){
+            throw new NotFoundException(Constantes.ACCOUNT_NOT_FOUND);
+        }
+        Cuenta real = cuenta.get();
+        Optional<Museo> museo = museoService.getByCuenta(real);
+
+        if(!museo.isPresent()){
+            throw new NotFoundException(Constantes.MUSEO_NOT_FOUND);
+        }
+        Museo realM = museo.get();
+
+        AccountInformationDto info = new AccountInformationDto(
+                                    realM.getDireccion(),
+                                    realM.getTelefono(),
+                                    realM.getLatitud(),
+                                    realM.getLongitud(),
+                                    realM.getNombre());
+        return info;
+    }
+    public Museo updateProfile(AccountInformationDto info, String alias){
+        Optional<Cuenta> cuenta = cuentaService.getByAlias(alias);
+
+        if (!cuenta.isPresent()){
+            throw new NotFoundException(Constantes.ACCOUNT_NOT_FOUND);
+        }
+        Cuenta real = cuenta.get();
+        Optional<Museo> museo = museoService.getByCuenta(real);
+
+        if(!museo.isPresent()){
+            throw new NotFoundException(Constantes.MUSEO_NOT_FOUND);
+        }
+        Museo realM = museo.get();
+
+        realM.setDireccion(info.getDireccion());
+        realM.setTelefono(info.getTelefono());
+        realM.setLatitud(info.getLatitud());
+        realM.setLongitud(info.getLongitud());
+        realM.setNombre(info.getNombre());
+
+        Museo fin = museoService.saveM(realM);
+
+        return fin;
+    }
     private void rollbackAction(String email){
         Optional<Cuenta> cuenta = cuentaService.getByEmail(email);
         if (cuenta.isPresent()){
