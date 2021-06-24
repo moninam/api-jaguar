@@ -55,13 +55,13 @@ public class UbicacionService {
             Double longitudM = item.getLongitud();
             double distancia = LocationOperation.getInstance().distance(latitudU, longitudU, latitudM, longitudM);
             
-            if(distancia < 0.8){
+            //if(distancia < 0.8){
                 MuseoUbicacion ubiActual = new MuseoUbicacion();
                 ubiActual.setDistance(distancia);
                 ubiActual.setMuseo(item);
 
                 ubicaciones.add(ubiActual);
-            }
+            //}
         }
         Collections.sort(ubicaciones);
         return ubicaciones;
