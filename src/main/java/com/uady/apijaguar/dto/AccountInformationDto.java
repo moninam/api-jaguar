@@ -33,6 +33,7 @@ public class AccountInformationDto {
         this.longitud = longitud;
         this.nombre = nombre;
     }
+    public AccountInformationDto(){}
     //GETTERS
     public String getDireccion(){
         return this.direccion;
