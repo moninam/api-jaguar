@@ -1,0 +1,1 @@
+-Dspring.datasource.url=jdbc:mysql://50.21.190.243:3306/jaguar?useSSL=true&serverTimezone=UTC
