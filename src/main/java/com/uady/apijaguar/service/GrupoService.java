@@ -1,66 +1,86 @@
 package com.uady.apijaguar.service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
-import com.uady.apijaguar.exception.InvalidOperationException;
+import com.uady.apijaguar.exception.NotFoundException;
+import com.uady.apijaguar.exception.OperationErrorException;
+import com.uady.apijaguar.model.Componente;
 import com.uady.apijaguar.model.Grupo;
-import com.uady.apijaguar.model.GrupoModelo;
-import com.uady.apijaguar.model.Marcador;
-import com.uady.apijaguar.repository.GrupoModeloRepository;
+import com.uady.apijaguar.model.Museo;
 import com.uady.apijaguar.repository.GrupoRepository;
-import com.uady.apijaguar.repository.MarcadorRepository;
+import com.uady.apijaguar.util.Constantes;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 @Service
 public class GrupoService {
     @Autowired
-    private GrupoRepository grupoRepository;
+    GrupoRepository grupoRepository;
 
     @Autowired
-    private GrupoModeloRepository grupoModeloRepository;
+    MuseoService museoService;
 
-    @Autowired
-    private MarcadorRepository marcadorRepository;
-
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(GrupoService.class);
+    private Logger logger = LogManager.getLogger(this.getClass());
 
     public List<Grupo> getGruposByIdMuseo(Integer idMuseo){
+
+        Optional<Museo> museo = museoService.getById(idMuseo);
+
+        if (!museo.isPresent()){
+            throw new NotFoundException(Constantes.MUSEO_NOT_EXIST);
+        }
+
+        List<Grupo> grupos = grupoRepository.findByMuseo(museo.get());
+
+        return grupos;
+    }
+
+    public Set<Componente> getComponentesByIdGrupo(Integer idGrupo){
+        Optional<Grupo> grupo = grupoRepository.findById(idGrupo);
+
+        if (!grupo.isPresent()){
+            throw new NotFoundException(Constantes.GRUPO_NOT_EXIST);
+        }
+        Grupo grupoFinal = grupo.get();
+
+        Set<Componente> componentes = grupoFinal.getComponentes();
+
+        return componentes;
+    }
+
+    public void save(Grupo grupo){
         try{
-            List<Grupo> grupos = new ArrayList<>();
-
-            grupos = grupoRepository.getGruposByIdMuseo(idMuseo);
-
-            return grupos;
+            grupoRepository.save(grupo);
         }catch(Exception e){
-            LOGGER.error("ERROR: {}", e.getMessage());
-            throw new InvalidOperationException("Ocurrio un error al realizar la operación");
+            logger.error(e.getMessage());
+            throw new OperationErrorException(Constantes.GRUPO_ERROR_R);
         }
     }
 
-    public List<GrupoModelo> getModelosByGrupo(Integer idGrupo){
+    public Grupo findById(Integer id){
+        Optional<Grupo> gOpt = grupoRepository.findById(id);
 
+        if (!gOpt.isPresent()){
+            throw new NotFoundException(Constantes.GRUPO_NOT_EXIST);
+        }
+        return gOpt.get();
+    }
+    public Optional<Grupo> getGrupoById(Integer id){
+        return grupoRepository.findById(id);
+    }
+    
+    public void deleteGrupo(Grupo grupo){
         try{
-            List<GrupoModelo> grupos = new ArrayList<>();
-
-            grupos = grupoModeloRepository.getModelosByIdGrupo(idGrupo);
-
-            return grupos;
-        }catch (Exception e){
-            LOGGER.error("ERROR: {}", e.getMessage());
-            throw new InvalidOperationException("Ocurrio un error al realizar la operación");
+            grupoRepository.delete(grupo);
+        }catch(Exception ex){
+            logger.error(ex.getMessage());
+            throw new OperationErrorException(Constantes.GRUPO_DELETE_ERROR);
         }
     }
-
-    public List<Marcador> getMarcadores(){
-        return marcadorRepository.findAll();
-    }
-
-
-
 }

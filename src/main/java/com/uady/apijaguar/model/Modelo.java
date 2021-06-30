@@ -5,100 +5,98 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "modelo")
+@Table(name="modelo")
 public class Modelo {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="idmodelo")
+    @Column(name="id_modelo")
     private Integer idModelo;
 
-    @Column(name="urlmodelo")
+    @Column(name="url_modelo")
     private String urlModelo;
 
-    @Column(name="descripcion")
-    private String descripcion;
+    @Column(name="nombre")
+    private String nombre;
 
-    @Column(name="icono")
-    private String icono;
+    @Column(name="nombre_animacion")
+    private String nombreAnimacion;
 
-    @ManyToOne
-    @JoinColumn(name = "idmarcador", referencedColumnName = "idmarcador")
-    private Marcador marcador;
+    @Column(name="has_rotation")
+    private Boolean hasRotation;
 
-    @ManyToOne
-    @JoinColumn(name = "idanimacion", referencedColumnName = "idanimacion")
-    private Animacion animacion;
+    @Column(name="has_movement")
+    private Boolean hasMovement;
 
-    @ManyToOne
-    @JoinColumn(name = "idcontenido", referencedColumnName = "idcontenido")
-    private ContenidoExtra contenido;
+    @Column(name="has_resize")
+    private Boolean hasResize;
 
-    public Modelo(String urlModelo, String descripcion, Marcador marcador, Animacion animacion, ContenidoExtra contenido){
-        this.urlModelo = urlModelo;
-        this.descripcion = descripcion;
-        this.marcador = marcador;
-        this.animacion = animacion;
-        this.contenido = contenido;
-    }
+    @Column(name="textura_path")
+    private String texturaPath;
 
     public Modelo(){}
 
+    public Modelo(String urlModelo, String nombre, String nombreAnimacion,
+                Boolean hasRotation, Boolean hasMovement, Boolean hasResize,
+                String texturaPath)
+    {
+        this.urlModelo = urlModelo;
+        this.nombre = nombre;
+        this.nombreAnimacion = nombreAnimacion;
+        this.hasRotation = hasRotation;
+        this.hasMovement = hasMovement;
+        this.hasResize = hasResize;
+        this.texturaPath = texturaPath;
+    }
+
+    //GETTERS
     public Integer getIdModelo(){
         return this.idModelo;
     }
-
     public String getUrlModelo(){
         return this.urlModelo;
     }
-
-    public String getDescripcion(){
-        return this.descripcion;
+    public String getNombre(){
+        return this.nombre;
+    }
+    public String getNombreAnimacion(){
+        return this.nombreAnimacion;
+    }
+    public Boolean getHasRotation(){
+        return this.hasRotation;
+    }
+    public Boolean getHasMovement(){
+        return this.hasMovement;
+    }
+    public Boolean getHasResize(){
+        return this.hasResize;
+    }
+    public String getTexturaPath(){
+        return this.texturaPath;
     }
 
-    public Marcador getMarcador(){
-        return this.marcador;
-    }
-
-    public Animacion getAnimacion(){
-        return this.animacion;
-    }
-
-    public String getIcono(){
-        return this.icono;
-    }
-
-    public ContenidoExtra getContenido(){
-        return this.contenido;
-    }
-
+    //SETTERS
     public void setUrlModelo(String urlModelo){
         this.urlModelo = urlModelo;
     }
-
-    public void setDescripcion(String descripcion){
-        this.descripcion = descripcion;
+    public void setNombre(String nombre){
+        this.nombre = nombre;
     }
-
-    public void setMarcador(Marcador marcador){
-        this.marcador = marcador;
+    public void setNombreAnimacion(String nombreAnimacion){
+        this.nombreAnimacion = nombreAnimacion;
     }
-
-    public void setAnimacion(Animacion animacion){
-        this.animacion = animacion;
+    public void isRotation(Boolean hasRotation){
+        this.hasRotation = hasRotation;
     }
-
-    public void setContenido(ContenidoExtra contenido){
-        this.contenido = contenido;
+    public void isMovement(Boolean hasMovement){
+        this.hasMovement = hasMovement;
     }
-
-    public void setIcono(String icono){
-        this.icono = icono;
+    public void isResize(Boolean hasResize){
+        this.hasResize = hasResize;
     }
-    
+    public void setTexturaPath(String texturaPath){
+        this.texturaPath = texturaPath;
+    }
 }
